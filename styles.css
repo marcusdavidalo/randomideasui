@@ -1,0 +1,7 @@
+.container {
+  max-width: 768px !important;
+}
+
+#loadingScreen {
+  z-index: 9999;
+}

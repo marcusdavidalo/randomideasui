@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Ideas</title>
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div
+      id="app"
+      class="min-h-screen bg-gray-900 text-white flex items-center justify-center"
+    >
+      <!-- Modal -->
+      <div
+        id="modal"
+        class="absolute transition-all ease-in-out duration-500 bg-gray-800 p-8 rounded shadow-lg shadow-slate-800"
+      >
+        <h2 class="text-2xl font-semibold mb-4">Enter Your Display Name</h2>
+        <input
+          id="displayNameInput"
+          type="text"
+          placeholder="Display Name"
+          class="w-full bg-gray-700 text-white px-4 py-2 rounded mb-4"
+        />
+        <button
+          id="saveDisplayNameBtn"
+          class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          Save
+        </button>
+      </div>
+
+      <!-- Navbar -->
+      <nav
+        id="navbar"
+        class="container bg-gray-800 px-4 py-4 flex justify-between items-center fixed top-0 w-full rounded"
+      >
+        <div>
+          <h2 class="text-lg font-semibold">Random Ideas</h2>
+        </div>
+        <div id="navTabs" class="flex lg:space-x-1 md:space-x-0">
+          <button
+            id="generatorTab"
+            class="transition-all ease-out duration-300 py-2 px-4 rounded hover:bg-gray-700 hover:scale-110 hover:-translate-y-1"
+          >
+            Generator
+          </button>
+          <button
+            id="addIdeaTab"
+            class="transition-all ease-out duration-300 py-2 px-4 rounded hover:bg-gray-700 hover:scale-110 hover:-translate-y-1"
+          >
+            Add Idea
+          </button>
+          <button
+            id="myIdeasTab"
+            class="transition-all ease-out duration-300 py-2 px-4 rounded hover:bg-gray-700 hover:scale-110 hover:-translate-y-1"
+          >
+            My Ideas
+          </button>
+          <button
+            id="allIdeasTab"
+            class="transition-all ease-out duration-300 py-2 px-4 rounded hover:bg-gray-700 hover:scale-110 hover:-translate-y-1"
+          >
+            All Ideas
+          </button>
+          <button
+            id="changeUserBtn"
+            class="transition-all ease-out duration-300 bg-orange-700 py-2 px-4 rounded hover:bg-orange-600 hover:scale-110 hover:-translate-y-1"
+          >
+            Change User
+          </button>
+        </div>
+      </nav>
+      <div class="w-1/2">
+        <!-- Content -->
+        <div id="content" class="p-8">
+          <!-- Generator Tab Content -->
+          <div id="generatorContent" class="text-center">
+            <div id="ideaContainer" class="text-2xl"></div>
+            <h2 class="text-3xl font-semibold mb-4">Generator</h2>
+            <button
+              id="generateBtn"
+              class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+            >
+              Generate Idea
+            </button>
+            </div>
+          </div>
+
+          <!-- Add Idea Tab Content -->
+          <div id="addIdeaContent" class="hidden">
+            <h2 class="text-3xl font-semibold mb-4">Add Idea</h2>
+            <div>
+              <input
+                id="ideaInput"
+                type="text"
+                placeholder="Idea"
+                class="w-full bg-gray-700 text-white px-4 py-2 rounded"
+                maxlength="100"
+              />
+            </div>
+            <div class="mt-4">
+              <select
+                id="tagInput"
+                class="w-full bg-gray-700 text-white px-4 py-2 rounded"
+              >
+                <option disabled selected value="tagselect">
+                  Select A Tag
+                </option>
+                <option value="technology">Technology</option>
+                <option value="art">Art</option>
+                <option value="food">Food</option>
+                <option value="travel">Travel</option>
+                <option value="sports">Sports</option>
+                <option value="music">Music</option>
+                <option value="fashion">Fashion</option>
+                <option value="books">Books</option>
+                <option value="movies">Movies</option>
+                <option value="gaming">Gaming</option>
+                <option value="health">Health</option>
+                <option value="fitness">Fitness</option>
+                <option value="photography">Photography</option>
+                <option value="science">Science</option>
+                <option value="nature">Nature</option>
+                <option value="business">Business</option>
+                <option value="education">Education</option>
+                <option value="finance">Finance</option>
+                <option value="humor">Humor</option>
+                <option value="history">History</option>
+              </select>
+            </div>
+            <div class="mt-4">
+              <button
+                id="submitIdeaBtn"
+                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+
+          <!-- My Ideas Tab Content -->
+          <div id="myIdeasContent" class="hidden">
+            <h2 class="text-3xl font-semibold mb-10 text-center">My Ideas</h2>
+            <ul id="myIdeaList"></ul>
+          </div>
+
+          <!-- All Ideas Tab Content -->
+          <div id="allIdeasContent" class="hidden">
+            <h2 class="text-3xl font-semibold mb-10 text-center">
+              All Current Ideas
+            </h2>
+            <ul id="allIdeasList"></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Screen -->
+      <div
+        id="loadingScreen"
+        class="fixed inset-0 flex items-center justify-center bg-gray-900 text-white text-2xl font-bold"
+      >
+        Loading...
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script src="app.js"></script>
+    </div>
+  </body>
+</html>
