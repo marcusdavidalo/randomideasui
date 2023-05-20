@@ -86,74 +86,108 @@
             >
               Generate Idea
             </button>
-            </div>
           </div>
+        </div>
 
-          <!-- Add Idea Tab Content -->
-          <div id="addIdeaContent" class="hidden">
-            <h2 class="text-3xl font-semibold mb-4">Add Idea</h2>
-            <div>
-              <input
-                id="ideaInput"
-                type="text"
-                placeholder="Idea"
-                class="w-full bg-gray-700 text-white px-4 py-2 rounded"
-                maxlength="100"
-              />
-            </div>
-            <div class="mt-4">
-              <select
-                id="tagInput"
-                class="w-full bg-gray-700 text-white px-4 py-2 rounded"
-              >
-                <option disabled selected value="tagselect">
-                  Select A Tag
-                </option>
-                <option value="technology">Technology</option>
-                <option value="art">Art</option>
-                <option value="food">Food</option>
-                <option value="travel">Travel</option>
-                <option value="sports">Sports</option>
-                <option value="music">Music</option>
-                <option value="fashion">Fashion</option>
-                <option value="books">Books</option>
-                <option value="movies">Movies</option>
-                <option value="gaming">Gaming</option>
-                <option value="health">Health</option>
-                <option value="fitness">Fitness</option>
-                <option value="photography">Photography</option>
-                <option value="science">Science</option>
-                <option value="nature">Nature</option>
-                <option value="business">Business</option>
-                <option value="education">Education</option>
-                <option value="finance">Finance</option>
-                <option value="humor">Humor</option>
-                <option value="history">History</option>
-              </select>
-            </div>
-            <div class="mt-4">
-              <button
-                id="submitIdeaBtn"
-                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-              >
-                Submit
-              </button>
-            </div>
+        <!-- Add Idea Tab Content -->
+        <div id="addIdeaContent" class="hidden">
+          <h2 class="text-3xl font-semibold mb-4">Add Idea</h2>
+          <div>
+            <input
+              id="ideaInput"
+              type="text"
+              placeholder="Idea"
+              class="w-full bg-gray-700 text-white px-4 py-2 rounded"
+              maxlength="100"
+            />
           </div>
+          <div class="mt-4">
+            <select
+              id="tagInput"
+              class="w-full bg-gray-700 text-white px-4 py-2 rounded"
+            >
+              <option disabled selected value="tagselect">Select A Tag</option>
+              <option value="technology">Technology</option>
+              <option value="art">Art</option>
+              <option value="food">Food</option>
+              <option value="travel">Travel</option>
+              <option value="sports">Sports</option>
+              <option value="music">Music</option>
+              <option value="fashion">Fashion</option>
+              <option value="books">Books</option>
+              <option value="movies">Movies</option>
+              <option value="gaming">Gaming</option>
+              <option value="health">Health</option>
+              <option value="fitness">Fitness</option>
+              <option value="photography">Photography</option>
+              <option value="science">Science</option>
+              <option value="nature">Nature</option>
+              <option value="business">Business</option>
+              <option value="education">Education</option>
+              <option value="finance">Finance</option>
+              <option value="humor">Humor</option>
+              <option value="history">History</option>
+            </select>
+          </div>
+          <div class="mt-4">
+            <button
+              id="submitIdeaBtn"
+              class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
 
-          <!-- My Ideas Tab Content -->
-          <div id="myIdeasContent" class="hidden">
-            <h2 class="text-3xl font-semibold mb-10 text-center">My Ideas</h2>
-            <ul id="myIdeaList"></ul>
-          </div>
+        <!-- My Ideas Tab Content -->
+        <div id="myIdeasContent" class="hidden">
+          <h2 class="text-3xl font-semibold mb-10 text-center">My Ideas</h2>
+          <ul id="myIdeaList"></ul>
+        </div>
 
-          <!-- All Ideas Tab Content -->
-          <div id="allIdeasContent" class="hidden">
-            <h2 class="text-3xl font-semibold mb-10 text-center">
-              All Current Ideas
-            </h2>
-            <ul id="allIdeasList"></ul>
+        <!-- All Ideas Tab Content -->
+        <div id="allIdeasContent" class="hidden">
+          <h2 class="text-3xl font-semibold mb-10 text-center">
+            All Current Ideas
+          </h2>
+          <!-- Tag Filter -->
+          <select
+            id="tagFilter"
+            class="w-full bg-gray-700 text-white px-4 py-2 rounded"
+          >
+            <option value="">All Tags</option>
+            <option value="technology">Technology</option>
+            <option value="art">Art</option>
+            <option value="food">Food</option>
+            <option value="travel">Travel</option>
+            <option value="sports">Sports</option>
+            <option value="music">Music</option>
+            <option value="fashion">Fashion</option>
+            <option value="books">Books</option>
+            <option value="movies">Movies</option>
+            <option value="gaming">Gaming</option>
+            <option value="health">Health</option>
+            <option value="fitness">Fitness</option>
+            <option value="photography">Photography</option>
+            <option value="science">Science</option>
+            <option value="nature">Nature</option>
+            <option value="business">Business</option>
+            <option value="education">Education</option>
+            <option value="finance">Finance</option>
+            <option value="humor">Humor</option>
+            <option value="history">History</option>
+          </select>
+          <!-- Name Filter -->
+          <div class="mt-4">
+            <input
+              id="nameFilter"
+              type="text"
+              placeholder="Filter By Name"
+              class="w-full bg-gray-700 text-white px-4 py-2 rounded"
+              maxlength="100"
+            />
           </div>
+          <ul id="allIdeasList"></ul>
         </div>
       </div>
 

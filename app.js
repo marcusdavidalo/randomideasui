@@ -11,9 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const myIdeasContent = document.getElementById('myIdeasContent');
   const generateBtn = document.getElementById('generateBtn');
   const ideaContainer = document.getElementById('ideaContainer');
-  const userContainer = document.getElementById('userContainer');
-  const tagContainer = document.getElementById('tagContainer');
-  const dateContainer = document.getElementById('dateContainer');
+  const tagFilterSelect = document.getElementById('tagFilter');
+  const nameFilterInput = document.getElementById('nameFilter');
   const ideaInput = document.getElementById('ideaInput');
   const tagInput = document.getElementById('tagInput');
   const submitIdeaBtn = document.getElementById('submitIdeaBtn');
@@ -173,38 +172,59 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Fetch and display all ideas - no delete button
   async function fetchAllIdeas() {
     try {
       showLoadingScreen();
       const response = await axios.get('http://localhost:8000/api/ideas');
       const ideas = response.data.data;
+      const tagFilter = document.getElementById('tagFilter').value; // Get the selected tag filter value
       allIdeasList.innerHTML = '';
 
       ideas.forEach((idea) => {
-        const listItem = `
-        <li class="px-4 py-3 rounded bg-gray-800 my-2">
-            <span class="justify-between text-xl my-2 px-2 py-1 rounded bg-gray-700">${
-              idea.text
-            }</span>
-            <div class="flex my-2">
-              <span class="bg-amber-600 px-2 py-1 rounded">by: ${
-                idea.username
-              }</span>
-              <span class="${
-                tagColors[idea.tag]
-              } ml-2 px-2 py-1 rounded">tag: ${idea.tag}</span>
-            </div>
-          </li>
-      `;
+        // Check if the idea matches the tag filter
+        if (tagFilter === '' || idea.tag === tagFilter) {
+          const listItem = `
+            <li class="px-4 py-3 rounded bg-gray-800 my-2">
+                <span class="justify-between text-xl my-2 px-2 py-1 rounded bg-gray-700">${
+                  idea.text
+                }</span>
+                <div class="flex my-2">
+                  <span class="bg-amber-600 px-2 py-1 rounded">by: ${
+                    idea.username
+                  }</span>
+                  <span class="${
+                    tagColors[idea.tag]
+                  } ml-2 px-2 py-1 rounded">tag: ${idea.tag}</span>
+                </div>
+              </li>
+          `;
 
-        allIdeasList.innerHTML += listItem;
+          allIdeasList.innerHTML += listItem;
+        }
       });
       hideLoadingScreen();
     } catch (error) {
       console.error(error);
       hideLoadingScreen();
     }
+  }
+
+  // Filter ideas by name
+  function filterIdeasByName() {
+    const nameFilter = nameFilterInput.value.trim().toLowerCase();
+    const ideas = Array.from(allIdeasList.children);
+
+    ideas.forEach((idea) => {
+      const username = idea
+        .querySelector('.bg-amber-600')
+        .textContent.toLowerCase();
+
+      if (username.includes(nameFilter) || nameFilter === '') {
+        idea.style.display = 'block';
+      } else {
+        idea.style.display = 'none';
+      }
+    });
   }
 
   // Submit new idea to the server
@@ -252,6 +272,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!isModalVisible) {
       fetchAllIdeas();
       showTabContent(allIdeasContent);
+      tagFilterSelect.addEventListener('change', fetchAllIdeas);
+      nameFilterInput.addEventListener('input', filterIdeasByName);
     }
   });
   // Generate random idea
