@@ -147,45 +147,47 @@
 
         <!-- All Ideas Tab Content -->
         <div id="allIdeasContent" class="hidden">
-          <h2 class="text-3xl font-semibold mb-10 text-center">
+          <h2 class="text-3xl font-semibold mb-10 mt-20 text-center">
             All Current Ideas
           </h2>
-          <!-- Tag Filter -->
-          <select
-            id="tagFilter"
-            class="w-full bg-gray-700 text-white px-4 py-2 rounded"
-          >
-            <option value="">All Tags</option>
-            <option value="technology">Technology</option>
-            <option value="art">Art</option>
-            <option value="food">Food</option>
-            <option value="travel">Travel</option>
-            <option value="sports">Sports</option>
-            <option value="music">Music</option>
-            <option value="fashion">Fashion</option>
-            <option value="books">Books</option>
-            <option value="movies">Movies</option>
-            <option value="gaming">Gaming</option>
-            <option value="health">Health</option>
-            <option value="fitness">Fitness</option>
-            <option value="photography">Photography</option>
-            <option value="science">Science</option>
-            <option value="nature">Nature</option>
-            <option value="business">Business</option>
-            <option value="education">Education</option>
-            <option value="finance">Finance</option>
-            <option value="humor">Humor</option>
-            <option value="history">History</option>
-          </select>
-          <!-- Name Filter -->
-          <div class="mt-4">
-            <input
-              id="nameFilter"
-              type="text"
-              placeholder="Filter By Name"
-              class="w-full bg-gray-700 text-white px-4 py-2 rounded"
-              maxlength="100"
-            />
+          <div class="flex">
+            <!-- Tag Filter -->
+            <select
+              id="tagFilter"
+              class="bg-gray-700 text-white px-4 py-2 rounded"
+            >
+              <option value="">All Tags</option>
+              <option value="technology">Technology</option>
+              <option value="art">Art</option>
+              <option value="food">Food</option>
+              <option value="travel">Travel</option>
+              <option value="sports">Sports</option>
+              <option value="music">Music</option>
+              <option value="fashion">Fashion</option>
+              <option value="books">Books</option>
+              <option value="movies">Movies</option>
+              <option value="gaming">Gaming</option>
+              <option value="health">Health</option>
+              <option value="fitness">Fitness</option>
+              <option value="photography">Photography</option>
+              <option value="science">Science</option>
+              <option value="nature">Nature</option>
+              <option value="business">Business</option>
+              <option value="education">Education</option>
+              <option value="finance">Finance</option>
+              <option value="humor">Humor</option>
+              <option value="history">History</option>
+            </select>
+            <!-- Name Filter -->
+            <div class="ml-5">
+              <input
+                id="nameFilter"
+                type="text"
+                placeholder="Filter By Name"
+                class="w-full bg-gray-700 text-white px-4 py-4 rounded"
+                maxlength="100"
+              />
+            </div>
           </div>
           <ul id="allIdeasList"></ul>
         </div>

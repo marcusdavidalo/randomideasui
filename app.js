@@ -22,25 +22,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Define a mapping of tags to colors
   const tagColors = {
-    technology: 'bg-blue-500',
-    art: 'bg-red-500',
-    food: 'bg-yellow-500',
-    travel: 'bg-green-500',
-    sports: 'bg-purple-500',
-    music: 'bg-pink-500',
-    fashion: 'bg-gray-500',
-    books: 'bg-indigo-500',
-    gaming: 'bg-orange-500',
-    health: 'bg-teal-500',
-    fitness: 'bg-lime-500',
-    photography: 'bg-cyan-500',
-    science: 'bg-amber-500',
-    nature: 'bg-emerald-500',
-    education: 'bg-red-600',
-    business: 'bg-orange-600',
-    finance: 'bg-lime-600',
-    humor: 'bg-pink-600',
-    history: 'bg-cyan-600',
+    technology: 'bg-gradient-to-br from-blue-800 to-violet-600',
+    art: 'bg-gradient-to-br from-red-600 to-yellow-600',
+    food: 'bg-gradient-to-br from-red-700 to-pink-600',
+    travel: 'bg-gradient-to-br from-green-600 to-blue-600',
+    sports: 'bg-gradient-to-br from-green-600 to-red-600 to-yellow-600',
+    music: 'bg-gradient-to-br from-pink-500 to-purple-500',
+    fashion: 'bg-gradient-to-br from-purple-500 to-cyan-500',
+    books: 'bg-gradient-to-br from-indigo-500 to-teal-500',
+    movies: 'bg-gradient-to-br from-gray-800 from-75% via-gray-500',
+    gaming: 'bg-gradient-to-br from-orange-500 to-yellow-500',
+    health: 'bg-gradient-to-br from-teal-500 to-green-500',
+    fitness: 'bg-gradient-to-br from-lime-500 to-yellow-500',
+    photography: 'bg-gradient-to-br from-cyan-500 to-blue-500',
+    science: 'bg-gradient-to-br from-amber-500 to-yellow-500',
+    nature: 'bg-gradient-to-br from-green-700 to-emerald-950',
+    education: 'bg-gradient-to-br from-red-600 to-orange-600',
+    business: 'bg-gradient-to-br from-orange-600 to-yellow-600',
+    finance: 'bg-gradient-to-br from-lime-600 to-yellow-600',
+    humor: 'bg-gradient-to-br from-pink-600 to-purple-600',
+    history: 'bg-gradient-to-br from-cyan-600 to-blue-600',
   };
 
   let displayName = null;
@@ -301,3 +302,15 @@ document.addEventListener('DOMContentLoaded', () => {
     hideLoadingScreen(); // Hide loading screen when all data is fetched
   });
 });
+
+// Hide navbar on scroll down and show on scroll up smoothly
+let prevScrollPos = window.pageYOffset;
+window.onscroll = function () {
+  const currentScrollPos = window.pageYOffset;
+  if (prevScrollPos > currentScrollPos) {
+    document.getElementById('navbar').style.top = '0';
+  } else {
+    document.getElementById('navbar').style.top = '-100px';
+  }
+  prevScrollPos = currentScrollPos;
+};
