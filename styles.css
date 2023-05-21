@@ -1,6 +1,14 @@
-.container {
-  max-width: 768px !important;
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+/* .container {
+  max-width: 768px !important;
+} */
 
 #loadingScreen {
   z-index: 9999;

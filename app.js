@@ -87,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Fetch random idea from the server with tag filter
   async function fetchRandomIdea() {
     try {
-      showLoadingScreen();
       const tagFilterRandom = tagSelect.value; // Get the selected tag filter value
       const response = await axios.get('http://localhost:8000/api/ideas');
       const ideas = response.data.data;
@@ -102,15 +101,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const randomIdea =
           filteredIdeas[Math.floor(Math.random() * filteredIdeas.length)];
         ideaContainer.innerHTML = `
-          <p class="bg-gray-800 px-4 py-4 rounded">${randomIdea.text}</p>
+          <p class="bg-gray-800 px-4 py-4 rounded-md">${randomIdea.text}</p>
           <div class="flex mb-20 mt-2">
-            <p class="text-2xl px-4 py-4 rounded bg-amber-600">by: ${
+            <p class="text-2xl px-4 py-4 rounded-md bg-amber-600">by: ${
               randomIdea.username
             }</p>
-            <p class="ml-2 text-2xl px-4 py-4 rounded ${
+            <p class="ml-2 text-2xl px-4 py-4 rounded-md ${
               tagColors[randomIdea.tag]
             }">${randomIdea.tag}</p>
-            <p class="ml-2 text-2xl px-4 py-4 rounded bg-gray-800">${randomIdea.date.slice(
+            <p class="ml-2 text-2xl px-4 py-4 rounded-md bg-gray-800">${randomIdea.date.slice(
               0,
               10
             )}</p>
@@ -158,22 +157,22 @@ document.addEventListener('DOMContentLoaded', () => {
       myIdeaList.innerHTML = '';
       myIdeas.forEach((idea) => {
         const listItem = `
-          <li class="px-4 py-3 rounded bg-gray-800 my-2">
+          <li class="px-4 py-3 rounded-md bg-gray-800 my-2">
           <div class="flex justify-between">
-            <span class="justify-between text-xl my-2 px-2 py-1 rounded bg-gray-700">${
+            <span class="justify-between text-xl my-2 px-2 py-1 rounded-md bg-gray-700">${
               idea.text
             }</span>
-            <button class="delete-btn bg-red-500 hover:bg-red-700 ml-2 px-2 py-1 rounded" data-idea-id="${
+            <button class="delete-btn bg-red-500 hover:bg-red-700 ml-2 px-2 py-1 rounded-md" data-idea-id="${
               idea._id
             }">Delete</button>
             </div>
             <div class="flex my-2">
-              <span class="bg-amber-600 px-2 py-1 rounded">by: ${
+              <span class="bg-amber-600 px-2 py-1 rounded-md">by: ${
                 idea.username
               }</span>
               <span class="${
                 tagColors[idea.tag]
-              } ml-2 px-2 py-1 rounded">tag: ${idea.tag}</span>
+              } ml-2 px-2 py-1 rounded-md">tag: ${idea.tag}</span>
             </div>
           </li>
         `;
@@ -200,17 +199,19 @@ document.addEventListener('DOMContentLoaded', () => {
         // Check if the idea matches the tag filter
         if (tagFilter === '' || idea.tag === tagFilter) {
           const listItem = `
-            <li class="px-4 py-3 rounded bg-gray-800 my-2">
-                <span class="justify-between text-xl my-2 px-2 py-1 rounded bg-gray-700">${
+            <li class="px-4 py-3 rounded-md bg-gray-800 my-2">
+            <div class="bg-gray-700 p-2 rounded-md">
+                <span class="justify-between text-xl my-2 rounded-md">${
                   idea.text
                 }</span>
+                </div>
                 <div class="flex my-2">
-                  <span class="bg-amber-600 px-2 py-1 rounded">by: ${
+                  <span class="bg-amber-600 px-2 py-1 rounded-md">by: ${
                     idea.username
                   }</span>
                   <span class="${
                     tagColors[idea.tag]
-                  } ml-2 px-2 py-1 rounded">tag: ${idea.tag}</span>
+                  } ml-2 px-2 py-1 rounded-md">tag: ${idea.tag}</span>
                 </div>
               </li>
           `;
