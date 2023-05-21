@@ -330,23 +330,3 @@ window.onscroll = function () {
   }
   prevScrollPos = currentScrollPos;
 };
-
-// Parallax
-// Add parallax effect to the background layers
-const parallaxContainer = document.querySelector('.parallax');
-const layers = parallaxContainer.querySelectorAll('.parallax__layer');
-
-function moveLayers(event) {
-  const initialX = window.innerWidth / 2 - event.pageX;
-  const initialY = window.innerHeight / 2 - event.pageY;
-
-  layers.forEach((layer, index) => {
-    const divider = index / 100;
-    const positionX = initialX * divider;
-    const positionY = initialY * divider;
-    const layerStyle = layer.style;
-    layerStyle.transform = `translate(${positionX}px, ${positionY}px)`;
-  });
-}
-
-parallaxContainer.addEventListener('mousemove', moveLayers);
