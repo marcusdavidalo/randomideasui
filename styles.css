@@ -10,6 +10,118 @@
   max-width: 768px !important;
 } */
 
+#modal {
+  z-index: 9999;
+}
+
 #loadingScreen {
   z-index: 9999;
+}
+
+#app {
+  background-color: #0d141f88;
+}
+
+#backgroundGif {
+  background: #333 center center/cover;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /* object-fit: cover; */
+  object-fit: fill;
+  z-index: -1;
+  filter: blur(2px);
+}
+
+.frosted-blur {
+  backdrop-filter: blur(10px) !important;
+  background-color: rgb(31, 41, 55, 0.25);
+  pointer-events: all !important;
+}
+
+/* Adjust z-index to make sure text is on top of the overlay */
+.frosted-blur::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: -1 !important;
+}
+
+/* Add frosted blur effect on hover */
+.frosted-blur:hover {
+  backdrop-filter: blur(10px) !important;
+  background-color: rgba(31, 41, 55, 0.15);
+}
+
+/* frosted blur light */
+.frosted-blur-light {
+  backdrop-filter: blur(10px) !important;
+  background-color: rgb(255, 255, 255, 0.25);
+  pointer-events: all !important;
+}
+
+.frosted-blur-light::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: -1 !important;
+}
+
+.frosted-blur-light:hover {
+  backdrop-filter: blur(10px) !important;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* frosted dark */
+.frosted-dark {
+  backdrop-filter: blur(10px) !important;
+  background-color: rgb(31, 41, 55, 0.35);
+  pointer-events: all !important;
+}
+
+.frosted-dark::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: -1 !important;
+}
+
+.frosted-dark:hover {
+  backdrop-filter: blur(10px) !important;
+  background-color: rgba(31, 41, 55, 0.25);
+}
+
+/* Delete Button Frosted */
+.frosted-delete {
+  backdrop-filter: blur(10px) !important;
+  background-color: rgba(255, 0, 0, 0.5);
+  pointer-events: all !important;
+}
+
+.frosted-delete::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: -1 !important;
+}
+
+.frosted-delete:hover {
+  backdrop-filter: blur(10px) !important;
+  background-color: rgba(255, 71, 71, 0.35);
 }

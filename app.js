@@ -157,23 +157,23 @@ document.addEventListener('DOMContentLoaded', () => {
       myIdeaList.innerHTML = '';
       myIdeas.forEach((idea) => {
         const listItem = `
-          <li class="px-4 py-3 rounded-md bg-gray-800 my-2">
-          <div class="flex justify-between">
-            <span class="justify-between text-xl my-2 px-2 py-1 rounded-md bg-gray-700">${
+          <li class="px-4 py-3 rounded-md my-2 frosted-blur">
+          <div class="flex justify-between rounded-md frosted-dark">
+            <span class="justify-between text-xl my-2 px-2 py-1 rounded-md">${
               idea.text
             }</span>
-            <button class="delete-btn bg-red-500 hover:bg-red-700 ml-2 px-2 py-1 rounded-md" data-idea-id="${
-              idea._id
-            }">Delete</button>
             </div>
             <div class="flex my-2">
-              <span class="bg-amber-600 px-2 py-1 rounded-md">by: ${
-                idea.username
-              }</span>
-              <span class="${
-                tagColors[idea.tag]
-              } ml-2 px-2 py-1 rounded-md">tag: ${idea.tag}</span>
+            <span class="bg-amber-600 px-2 py-1 rounded-md">by: ${
+              idea.username
+            }</span>
+            <span class="${
+              tagColors[idea.tag]
+            } ml-2 px-2 py-1 rounded-md">tag: ${idea.tag}</span>
             </div>
+            <button class="w-full delete-btn px-2 py-1 rounded-md frosted-delete" data-idea-id="${
+              idea._id
+            }">Delete</button>
           </li>
         `;
         myIdeaList.innerHTML += listItem;
@@ -199,9 +199,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Check if the idea matches the tag filter
         if (tagFilter === '' || idea.tag === tagFilter) {
           const listItem = `
-            <li class="px-4 py-3 rounded-md bg-gray-800 my-2">
-            <div class="bg-gray-700 p-2 rounded-md">
-                <span class="justify-between text-xl my-2 rounded-md">${
+            <li class="px-4 py-3 rounded-md my-2 frosted-blur">
+            <div class="p-2 rounded-md frosted-dark">
+                <span class="justify-between text-xl rounded-md">${
                   idea.text
                 }</span>
                 </div>
@@ -331,3 +331,41 @@ window.onscroll = function () {
   }
   prevScrollPos = currentScrollPos;
 };
+
+// Function to change the background to a darkened pixel art GIF based on the time of day
+function changeBackgroundBasedOnTime() {
+  const currentDate = new Date();
+  const currentHour = currentDate.getHours();
+
+  // Get the body element
+  const body = document.querySelector('body');
+
+  // Define the URLs of the pixel art GIFs for different times of day
+  const backgroundGifs = {
+    morning: 'url(https://media.tenor.com/RRhijk6pHAoAAAAC/good-morning.gif)',
+    afternoon:
+      'url(https://64.media.tumblr.com/d216cb89703e2eef4191146b2ef6f34a/tumblr_prjou88Lvu1soktugo1_1280.gif)',
+    evening:
+      'url(https://64.media.tumblr.com/141a1667d0345d9f898a0389761cde17/f540a8cc0997a926-41/s1280x1920/ec704b6dbec3dbd020566385f8766469c37a5b64.gif)',
+    night:
+      'url(https://media.tenor.com/TIUfh_o9hIUAAAAC/minimoss-pixel-art.gif)',
+  };
+
+  // Set the background image based on the current time of day
+  if (currentHour >= 5 && currentHour < 12) {
+    document.getElementById('backgroundGif').style.backgroundImage =
+      backgroundGifs.morning;
+  } else if (currentHour >= 12 && currentHour < 18) {
+    document.getElementById('backgroundGif').style.backgroundImage =
+      backgroundGifs.afternoon;
+  } else if (currentHour >= 18 && currentHour < 22) {
+    document.getElementById('backgroundGif').style.backgroundImage =
+      backgroundGifs.evening;
+  } else {
+    document.getElementById('backgroundGif').style.backgroundImage =
+      backgroundGifs.night;
+  }
+}
+
+// Call the function to change the background based on the current time
+changeBackgroundBasedOnTime();
