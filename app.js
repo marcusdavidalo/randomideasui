@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('modal');
   const displayNameInput = document.getElementById('displayNameInput');
   const saveDisplayNameBtn = document.getElementById('saveDisplayNameBtn');
+  const closeDisplayNameBtn = document.getElementById('closeDisplayNameBtn');
   const generatorTab = document.getElementById('generatorTab');
   const tagSelect = document.getElementById('tagSelect');
   const addIdeaTab = document.getElementById('addIdeaTab');
@@ -19,6 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const myIdeaList = document.getElementById('myIdeaList');
   const allIdeasList = document.getElementById('allIdeasList');
   const loadingScreen = document.getElementById('loadingScreen');
+  const itemsPerPage = 9;
+  let currentPage = 1;
+  let filteredIdeas = [];
 
   // Define a mapping of tags to colors
   const tagColors = {
@@ -69,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.classList.add('hidden');
       isModalVisible = false;
       localStorage.setItem('displayName', displayName); // Store display name in local storage
+      document.getElementById('currentUser').textContent = displayName; // Update the current user element
       showTabContent(generatorContent);
     }
   }
@@ -101,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const randomIdea =
           filteredIdeas[Math.floor(Math.random() * filteredIdeas.length)];
         ideaContainer.innerHTML = `
-          <p class="bg-gray-800 px-4 py-4 rounded-md">${randomIdea.text}</p>
+          <p class="px-4 py-4 rounded-md frosted-dark">${randomIdea.text}</p>
           <div class="flex mb-20 mt-2">
             <p class="text-2xl px-4 py-4 rounded-md bg-amber-600">by: ${
               randomIdea.username
@@ -109,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <p class="ml-2 text-2xl px-4 py-4 rounded-md ${
               tagColors[randomIdea.tag]
             }">${randomIdea.tag}</p>
-            <p class="ml-2 text-2xl px-4 py-4 rounded-md bg-gray-800">${randomIdea.date.slice(
+            <p class="ml-2 text-2xl px-4 py-4 rounded-md frosted-dark">${randomIdea.date.slice(
               0,
               10
             )}</p>
@@ -157,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
       myIdeaList.innerHTML = '';
       myIdeas.forEach((idea) => {
         const listItem = `
-          <li class="px-4 py-3 rounded-md my-2 frosted-blur">
+          <li class="px-4 py-3 rounded-md frosted-blur">
           <div class="flex justify-between rounded-md frosted-dark">
             <span class="justify-between text-xl my-2 px-2 py-1 rounded-md">${
               idea.text
@@ -187,42 +192,106 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Fetch and display all ideas NOW with pagination - :)
   async function fetchAllIdeas() {
     try {
       showLoadingScreen();
       const response = await axios.get('http://localhost:8000/api/ideas');
       const ideas = response.data.data;
-      const tagFilter = document.getElementById('tagFilter').value; // Get the selected tag filter value
-      allIdeasList.innerHTML = '';
+      const tagFilter = tagFilterSelect.value; // Get the selected tag filter value
 
-      ideas.forEach((idea) => {
-        // Check if the idea matches the tag filter
-        if (tagFilter === '' || idea.tag === tagFilter) {
-          const listItem = `
-            <li class="px-4 py-3 rounded-md my-2 frosted-blur">
-            <div class="p-2 rounded-md frosted-dark">
-                <span class="justify-between text-xl rounded-md">${
-                  idea.text
-                }</span>
-                </div>
-                <div class="flex my-2">
-                  <span class="bg-amber-600 px-2 py-1 rounded-md">by: ${
-                    idea.username
-                  }</span>
-                  <span class="${
-                    tagColors[idea.tag]
-                  } ml-2 px-2 py-1 rounded-md">tag: ${idea.tag}</span>
-                </div>
-              </li>
-          `;
+      // Filter ideas based on tag filter
+      filteredIdeas =
+        tagFilter !== ''
+          ? ideas.filter((idea) => idea.tag === tagFilter)
+          : ideas;
 
-          allIdeasList.innerHTML += listItem;
-        }
-      });
+      // Apply name filter if available
+      const nameFilter = nameFilterInput.value.trim().toLowerCase();
+      if (nameFilter !== '') {
+        filteredIdeas = filteredIdeas.filter((idea) =>
+          idea.username.toLowerCase().includes(nameFilter)
+        );
+      }
+
+      // Calculate total number of pages
+      const totalPages = Math.ceil(filteredIdeas.length / itemsPerPage);
+
+      // Validate current page number
+      if (currentPage < 1) {
+        currentPage = 1;
+      } else if (currentPage > totalPages) {
+        currentPage = totalPages;
+      }
+
+      // Calculate start and end indices of ideas for the current page
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+
+      // Display ideas for the current page
+      const currentPageIdeas = filteredIdeas.slice(startIndex, endIndex);
+      displayIdeas(currentPageIdeas);
+
+      // Generate pagination buttons
+      generatePaginationButtons(totalPages);
+
       hideLoadingScreen();
     } catch (error) {
       console.error(error);
       hideLoadingScreen();
+    }
+  }
+
+  // Display the ideas on the page
+  function displayIdeas(ideas) {
+    const list = document.getElementById('allIdeasList');
+    list.innerHTML = '';
+    ideas.forEach((idea) => {
+      const listItem = `
+        <li class="px-4 py-3 rounded-md frosted-blur">
+          <div class="p-2 rounded-md frosted-dark">
+            <span class="justify-between text-xl rounded-md">${idea.text}</span>
+          </div>
+          <div class="flex my-2">
+            <span class="bg-amber-600 px-2 py-1 rounded-md">by: ${
+              idea.username
+            }</span>
+            <span class="${
+              tagColors[idea.tag]
+            } ml-2 px-2 py-1 rounded-md">tag: ${idea.tag}</span>
+          </div>
+        </li>
+      `;
+      list.innerHTML += listItem;
+    });
+  }
+
+  // Generate pagination buttons
+  function generatePaginationButtons(totalPages) {
+    const paginationContainer = document.getElementById('pagination');
+    paginationContainer.innerHTML = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+      const button = document.createElement('button');
+      button.textContent = i;
+      button.classList.add(
+        'ml-2',
+        'px-4',
+        'py-4',
+        'rounded-md',
+        'frosted-blur'
+      );
+
+      if (i === currentPage) {
+        button.classList.add('frosted-dark', 'text-white');
+      } else {
+        button.addEventListener('click', () => {
+          currentPage = i;
+          fetchAllIdeas();
+        });
+      }
+
+      paginationContainer.appendChild(button);
     }
   }
 
@@ -273,6 +342,11 @@ document.addEventListener('DOMContentLoaded', () => {
     showTabContent(generatorContent)
   );
 
+  closeDisplayNameBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    isModalVisible = false;
+  });
+
   // Show add idea tab
   addIdeaTab.addEventListener('click', () => showTabContent(addIdeaContent));
 
@@ -304,11 +378,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const changeUserBtn = document.getElementById('changeUserBtn');
   changeUserBtn.addEventListener('click', promptDisplayName);
 
-  // Check if display name exists in local storage
   if (localStorage.getItem('displayName')) {
     displayName = localStorage.getItem('displayName');
     isModalVisible = false;
     modal.classList.add('hidden');
+    document.getElementById(
+      'currentUser'
+    ).innerHTML = `<p>User: ${displayName}`; // Update the current user element
   } else {
     promptDisplayName();
   }
@@ -337,8 +413,18 @@ function changeBackgroundBasedOnTime() {
   const currentDate = new Date();
   const currentHour = currentDate.getHours();
 
-  // Get the body element
-  const body = document.querySelector('body');
+  document.addEventListener('mousemove', (event) => {
+    const bggif = document.getElementById('backgroundGifContainer');
+
+    // Calculate the new background position based on the mouse coordinates
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+    const offsetX = mouseX / bggif.offsetWidth;
+    const offsetY = mouseY / bggif.offsetHeight;
+
+    // Update the background position using CSS transform property
+    bggif.style.transform = `translate(-${offsetX * 30}px, -${offsetY * 30}px)`;
+  });
 
   // Define the URLs of the pixel art GIFs for different times of day
   const backgroundGifs = {

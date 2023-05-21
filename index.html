@@ -9,7 +9,9 @@
   </head>
 
   <body>
+    <div id="backgroundGifContainer">
     <div id="backgroundGif"></div>
+  </div>
     <div
       id="app"
       class="min-h-screen text-white flex items-center justify-center"
@@ -53,6 +55,7 @@
       >
         Change User
       </button>
+      <div id="currentUser" class="bg-amber-600 py-2 px-4 rounded-md"></div>
     </div>
   </nav>
       <!-- Modal -->
@@ -69,7 +72,7 @@
         />
         <button
           id="saveDisplayNameBtn"
-          class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md frostedBlueBtn"
+          class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md frosted-blue"
         >
           Save
         </button>
@@ -90,13 +93,13 @@
             <div class="flex justify-center">
             <button
               id="generateBtn"
-              class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md frostedBlueBtn"
+              class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-4 rounded-md frosted-blue"
             >
               Generate Idea
             </button>
             <select
               id="tagSelect"
-              class="text-white mx-3 px-4 py-2 rounded-md frosted-blur"
+              class="text-white mx-3 px-4 py-4 rounded-md frosted-blur"
             >
               <option class="bg-gray-700" value="all">All</option>
               <option class="bg-gray-700" value="technology">Technology</option>
@@ -166,7 +169,7 @@
           <div class="mt-4">
             <button
               id="submitIdeaBtn"
-              class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md frosted-blur"
+              class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md frosted-blue"
             >
               Submit
             </button>
@@ -175,16 +178,16 @@
 
         <!-- My Ideas Tab Content -->
         <div id="myIdeasContent" class="hidden">
-          <h2 class="text-3xl font-semibold mb-10 mt-20 text-center">My Ideas</h2>
+          <h2 class="text-3xl font-semibold mb-10 mt-18 text-center">My Ideas</h2>
           <ul id="myIdeaList" class="grid grid-cols-3 gap-4"></ul>
         </div>
 
         <!-- All Ideas Tab Content -->
         <div id="allIdeasContent" class="hidden">
-          <h2 class="text-3xl font-semibold mb-10 mt-20 text-center">
+          <h2 class="text-3xl font-semibold mb-10 mt-18 text-center">
             All Current Ideas
           </h2>
-          <div class="flex">
+          <div class="flex mb-4">
             <!-- Tag Filter -->
             <select
               id="tagFilter"
@@ -222,6 +225,7 @@
                 maxlength="100"
               />
             </div>
+            <div id="pagination" class="flex justify-center ml-3"></div>
           </div>
           <ul id="allIdeasList" class="grid grid-cols-3 gap-4"></ul>
         </div>
