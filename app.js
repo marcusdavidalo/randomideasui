@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('modal');
   const displayNameInput = document.getElementById('displayNameInput');
   const saveDisplayNameBtn = document.getElementById('saveDisplayNameBtn');
-  const navbar = document.getElementById('navbar');
   const generatorTab = document.getElementById('generatorTab');
+  const tagSelect = document.getElementById('tagSelect');
   const addIdeaTab = document.getElementById('addIdeaTab');
   const myIdeasTab = document.getElementById('myIdeasTab');
   const generatorContent = document.getElementById('generatorContent');
@@ -84,31 +84,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Fetch random idea from the server
-  // Fetch random idea from the server
+  // Fetch random idea from the server with tag filter
   async function fetchRandomIdea() {
     try {
+      showLoadingScreen();
+      const tagFilterRandom = tagSelect.value; // Get the selected tag filter value
       const response = await axios.get('http://localhost:8000/api/ideas');
       const ideas = response.data.data;
-      const randomIdea = ideas[Math.floor(Math.random() * ideas.length)];
 
-      ideaContainer.innerHTML = `
-      <p class="bg-gray-800 px-4 py-4 rounded">${randomIdea.text}</p>
-      <div class="flex mb-20 mt-2">
-        <p class="text-2xl px-4 py-4 rounded bg-amber-600">by: ${
-          randomIdea.username
-        }</p>
-        <p class="ml-2 text-2xl px-4 py-4 rounded ${
-          tagColors[randomIdea.tag]
-        }">${randomIdea.tag}</p>
-        <p class="ml-2 text-2xl px-4 py-4 rounded bg-gray-800">${randomIdea.date.slice(
-          0,
-          10
-        )}</p>
-    </div>
-    `;
+      // Filter ideas based on tag filter
+      const filteredIdeas =
+        tagFilterRandom !== 'all'
+          ? ideas.filter((idea) => idea.tag === tagFilterRandom)
+          : ideas;
+
+      if (filteredIdeas.length > 0) {
+        const randomIdea =
+          filteredIdeas[Math.floor(Math.random() * filteredIdeas.length)];
+        ideaContainer.innerHTML = `
+          <p class="bg-gray-800 px-4 py-4 rounded">${randomIdea.text}</p>
+          <div class="flex mb-20 mt-2">
+            <p class="text-2xl px-4 py-4 rounded bg-amber-600">by: ${
+              randomIdea.username
+            }</p>
+            <p class="ml-2 text-2xl px-4 py-4 rounded ${
+              tagColors[randomIdea.tag]
+            }">${randomIdea.tag}</p>
+            <p class="ml-2 text-2xl px-4 py-4 rounded bg-gray-800">${randomIdea.date.slice(
+              0,
+              10
+            )}</p>
+          </div>
+        `;
+      } else {
+        ideaContainer.innerHTML = `<p>No ideas found with the selected tag.</p>`;
+      }
+      hideLoadingScreen();
     } catch (error) {
       console.error(error);
+      ideaContainer.innerHTML = `<p>Error occurred while fetching ideas.</p>`;
+      hideLoadingScreen();
     }
   }
 
@@ -279,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   // Generate random idea
   generateBtn.addEventListener('click', fetchRandomIdea);
+  // tagSelect.addEventListener('change', fetchRandomIdea);
 
   // Submit new idea
   submitIdeaBtn.addEventListener('click', submitIdea);
@@ -314,3 +330,23 @@ window.onscroll = function () {
   }
   prevScrollPos = currentScrollPos;
 };
+
+// Parallax
+// Add parallax effect to the background layers
+const parallaxContainer = document.querySelector('.parallax');
+const layers = parallaxContainer.querySelectorAll('.parallax__layer');
+
+function moveLayers(event) {
+  const initialX = window.innerWidth / 2 - event.pageX;
+  const initialY = window.innerHeight / 2 - event.pageY;
+
+  layers.forEach((layer, index) => {
+    const divider = index / 100;
+    const positionX = initialX * divider;
+    const positionY = initialY * divider;
+    const layerStyle = layer.style;
+    layerStyle.transform = `translate(${positionX}px, ${positionY}px)`;
+  });
+}
+
+parallaxContainer.addEventListener('mousemove', moveLayers);
