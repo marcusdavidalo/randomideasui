@@ -73,7 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.classList.add('hidden');
       isModalVisible = false;
       localStorage.setItem('displayName', displayName); // Store display name in local storage
-      document.getElementById('currentUser').textContent = displayName; // Update the current user element
+      document.getElementById(
+        'currentUser'
+      ).innerHTML = `<p>User: ${displayName}`; // Update the current user element
       showTabContent(generatorContent);
     }
   }
@@ -367,9 +369,16 @@ document.addEventListener('DOMContentLoaded', () => {
       nameFilterInput.addEventListener('input', filterIdeasByName);
     }
   });
+
+  // If on all ideas tab run fetchAllIdeas on enter keypress
+  nameFilterInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      fetchAllIdeas();
+    }
+  });
+
   // Generate random idea
   generateBtn.addEventListener('click', fetchRandomIdea);
-  // tagSelect.addEventListener('change', fetchRandomIdea);
 
   // Submit new idea
   submitIdeaBtn.addEventListener('click', submitIdea);
@@ -424,7 +433,7 @@ function changeBackgroundBasedOnTime() {
 
     // Update the background position using CSS transform property
     bggif.style.transform = `translate(-${offsetX * 30}px, -${offsetY * 30}px)`;
-  });
+  }); // Very bad for performance :(
 
   // Define the URLs of the pixel art GIFs for different times of day
   const backgroundGifs = {
@@ -440,16 +449,16 @@ function changeBackgroundBasedOnTime() {
   // Set the background image based on the current time of day
   if (currentHour >= 5 && currentHour < 12) {
     document.getElementById('backgroundGif').style.backgroundImage =
-      backgroundGifs.morning;
+      backgroundGifs.morning; // in 12 hour format = 5am to 12pm
   } else if (currentHour >= 12 && currentHour < 18) {
     document.getElementById('backgroundGif').style.backgroundImage =
-      backgroundGifs.afternoon;
+      backgroundGifs.afternoon; // in 12 hour format = 12pm to 6pm
   } else if (currentHour >= 18 && currentHour < 22) {
     document.getElementById('backgroundGif').style.backgroundImage =
-      backgroundGifs.evening;
+      backgroundGifs.evening; // in 12 hour format = 6pm to 10pm
   } else {
     document.getElementById('backgroundGif').style.backgroundImage =
-      backgroundGifs.night;
+      backgroundGifs.night; // in 12 hour format = 10pm to 5am
   }
 }
 
