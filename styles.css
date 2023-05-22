@@ -133,13 +133,13 @@ button {
 }
 
 /* Delete Button Frosted */
-.frosted-delete {
+.frosted-red {
   backdrop-filter: blur(10px) !important;
   background-color: rgba(255, 0, 0, 0.5);
   pointer-events: all !important;
 }
 
-.frosted-delete::before {
+.frosted-red::before {
   content: '' !important;
   position: absolute !important;
   top: 0 !important;
@@ -149,7 +149,7 @@ button {
   z-index: -1 !important;
 }
 
-.frosted-delete:hover {
+.frosted-red:hover {
   backdrop-filter: blur(10px) !important;
   background-color: rgba(255, 71, 71, 0.35);
 }

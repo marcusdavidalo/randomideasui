@@ -88,6 +88,14 @@ document.addEventListener('DOMContentLoaded', () => {
       myIdeasContent.classList.add('hidden');
       allIdeasContent.classList.add('hidden');
       tabContent.classList.remove('hidden');
+
+      // Clear the contents of myIdeasContent and allIdeasList
+      if (tabContent !== myIdeasContent) {
+        myIdeasContent.innerHTML = '';
+      }
+      if (tabContent !== allIdeasContent) {
+        allIdeasList.innerHTML = '';
+      }
     }
   }
 
@@ -178,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
               tagColors[idea.tag]
             } ml-2 px-2 py-1 rounded-md">tag: ${idea.tag}</span>
             </div>
-            <button class="w-full delete-btn px-2 py-1 rounded-md frosted-delete" data-idea-id="${
+            <button class="w-full delete-btn px-2 py-1 rounded-md frosted-red" data-idea-id="${
               idea._id
             }">Delete</button>
           </li>
@@ -295,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       paginationContainer.appendChild(button);
     }
-  }
+  } // The Pagination Overall is currently very bad for performance because it is client side and there may be a better way to do this via client side but it works for now
 
   // Filter ideas by name
   function filterIdeasByName() {
@@ -433,7 +441,7 @@ function changeBackgroundBasedOnTime() {
 
     // Update the background position using CSS transform property
     bggif.style.transform = `translate(-${offsetX * 30}px, -${offsetY * 30}px)`;
-  }); // Very bad for performance :(
+  }); // Very bad for performance :( but looks nice
 
   // Define the URLs of the pixel art GIFs for different times of day
   const backgroundGifs = {
@@ -464,3 +472,74 @@ function changeBackgroundBasedOnTime() {
 
 // Call the function to change the background based on the current time
 changeBackgroundBasedOnTime();
+
+// Secret Code Modal
+// the secret code
+const secretCode = 'secret12345';
+
+// key sequence tracker
+let enteredCode = '';
+
+const secretCodeModal = document.getElementById('secretCodeModal');
+const secretCodeInput = document.getElementById('secretCodeInput');
+
+// Add event listener to the submit button
+document.getElementById('submitSecretCodeBtn').addEventListener('click', () => {
+  checkSecretCode();
+});
+
+// Add event listener to the close button
+document
+  .getElementById('closeSecretCodeModalBtn')
+  .addEventListener('click', () => {
+    closeSecretCodeModal();
+  });
+
+// Add event listener to the document for keypress events
+document.addEventListener('keypress', (event) => {
+  // Get the pressed key
+  const key = String.fromCharCode(event.keyCode);
+  enteredCode += key;
+
+  // Reset the enteredCode if the sequence is wrong
+  if (!secretCode.startsWith(enteredCode)) {
+    enteredCode = '';
+  }
+
+  // Check if the enteredCode matches the secretCode
+  if (enteredCode === secretCode) {
+    // Clear the enteredCode
+    enteredCode = '';
+
+    // Open the secret code modal
+    openSecretCodeModal();
+  }
+});
+
+// Function to check the entered secret code
+function checkSecretCode() {
+  if (secretCodeInput.value === secretCode) {
+    // Clear the enteredCode
+    enteredCode = '';
+
+    // Open the secret code modal
+    openSecretCodeModal();
+  } else {
+    // Clear the enteredCode and the input field
+    enteredCode = '';
+    secretCodeInput.value = '';
+
+    // Perform any action to handle incorrect code
+    console.log('Incorrect secret code');
+  }
+}
+
+// Function to open the secret code modal
+function openSecretCodeModal() {
+  secretCodeModal.classList.remove('hidden');
+}
+
+// Function to close the secret code modal
+function closeSecretCodeModal() {
+  secretCodeModal.classList.add('hidden');
+}

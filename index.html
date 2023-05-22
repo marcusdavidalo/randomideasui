@@ -78,7 +78,7 @@
         </button>
         <button
           id="closeDisplayNameBtn"
-          class="text-white px-4 py-2 rounded-md frosted-delete"
+          class="text-white px-4 py-2 rounded-md frosted-red"
         >
           Close
         </button>
@@ -238,6 +238,32 @@
       >
         Loading...
       </div>
+
+      <!-- Secret Code Modal -->
+      <div id="secretCodeModal" class="hidden fixed inset-0 bg-opacity-50 flex items-center justify-center">
+        <div class="rounded-md px-12 py-8 frosted-blur transition-all ease-out">
+          <h2 class="text-2xl font-semibold mb-4">Enter Secret Code</h2>
+          <input
+            id="secretCodeInput"
+            type="text"
+            placeholder="Secret Code"
+            class="w-full text-black px-4 py-4 rounded-md frosted-blur"
+            maxlength="100"
+          />
+          <div class="mt-4">
+            <button
+              id="submitSecretCodeBtn"
+              class="text-white px-4 py-2 rounded-md frosted-blue"
+            >
+              Submit
+            </button>
+            <!-- Close -->
+            <button
+              id="closeSecretCodeModalBtn"
+              class="text-white px-4 py-2 rounded-md frosted-red ml-4"
+            >Close</button>
+          </div>
+        </div>
 
       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
